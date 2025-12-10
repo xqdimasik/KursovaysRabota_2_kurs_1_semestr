@@ -13,6 +13,7 @@ public class RecipeService {
         recipes = JsonRecipeStorage.loadFromJson(JSON_FILE);
 
         if (recipes.isEmpty()) {
+            System.out.println("Файл рецептов пустой, добавляю примеры...");
             addExampleRecipes();
         }
     }
@@ -54,23 +55,39 @@ public class RecipeService {
         charlotte.addIngredient(new Ingredient("Яблоки", "5 шт"));
         recipes.add(charlotte);
 
-        Recipe chiken_teriaki = new Recipe("Курица терияки", Category.MEAT,
-                "1. Куриное филе нарезать кусочками.\n" +
-                        "2. Обжарить на растительном масле до золотистой корочки.\n" +
-                        "3. Приготовить соус: смешать соевый соус, мед, чеснок и имбирь.\n" +
-                        "4. Залить курицу соусом, тушить 10-15 минут.\n" +
-                        "5. Подавать с рисом или овощами.\n" +
-                        "6. Украсить кунжутом и зеленым луком.");
-        chiken_teriaki.addIngredient(new Ingredient("Куриное филе", "400 г"));
-        chiken_teriaki.addIngredient(new Ingredient("Соевый соус", "4 ст. л."));
-        chiken_teriaki.addIngredient(new Ingredient("Чеснок", "3 зубчика"));
-        chiken_teriaki.addIngredient(new Ingredient("Имбирь", "1 ст. л."));
-        chiken_teriaki.addIngredient(new Ingredient("Кунжут", "2 ст. л."));
-        chiken_teriaki.addIngredient(new Ingredient("Растительно масло", "1 ст. л."));
-        chiken_teriaki.addIngredient(new Ingredient("Зеленый лук", "для украшения"));
-        recipes.add(chiken_teriaki);
+        SpecialRecipe newYearCake = new SpecialRecipe(
+                "Новогодний торт",
+                Category.DESSERT,
+                "1. Приготовить бисквитное тесто.\n" +
+                        "2. Выпекать 30 минут при 180°C.\n" +
+                        "3. Пропитать кремом.\n" +
+                        "4. Украсить новогодней символикой.",
+                "Новый год"
+        );
+        newYearCake.addIngredient(new Ingredient("Мука", "300 г"));
+        newYearCake.addIngredient(new Ingredient("Яйца", "4 шт"));
+        newYearCake.addIngredient(new Ingredient("Сахар", "200 г"));
+        newYearCake.addIngredient(new Ingredient("Сливки", "500 мл"));
+        newYearCake.addIngredient(new Ingredient("Красная икра", "для украшения"));
+        recipes.add(newYearCake);
+
+        SpecialRecipe easterCake = new SpecialRecipe(
+                "Пасхальный кулич",
+                Category.DESSERT,
+                "1. Приготовить дрожжевое тесто.\n" +
+                        "2. Добавить изюм и цукаты.\n" +
+                        "3. Выпекать в формах 40 минут.\n" +
+                        "4. Покрыть глазурью.",
+                "Пасха"
+        );
+        easterCake.addIngredient(new Ingredient("Мука", "500 г"));
+        easterCake.addIngredient(new Ingredient("Дрожжи", "25 г"));
+        easterCake.addIngredient(new Ingredient("Изюм", "100 г"));
+        easterCake.addIngredient(new Ingredient("Яйца", "3 шт"));
+        recipes.add(easterCake);
 
         saveAllRecipes();
+        System.out.println("Добавлено " + recipes.size() + " примеров рецептов.");
     }
 
     public List<Recipe> getAll() {

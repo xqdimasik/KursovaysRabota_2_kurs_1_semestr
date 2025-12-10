@@ -20,6 +20,10 @@ public class Recipe {
         this.ingredients = new ArrayList<>();
     }
 
+    public String getRecipeType() {
+        return "Обычный рецепт";
+    }
+
     public String getTitle() {
         return title;
     }
@@ -75,7 +79,7 @@ public class Recipe {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("").append(title).append("\n");
+        sb.append("🍳 ").append(title).append("\n");
         sb.append("Категория: ").append(category.getDisplayName()).append("\n");
         sb.append("\nИнгредиенты:\n");
 

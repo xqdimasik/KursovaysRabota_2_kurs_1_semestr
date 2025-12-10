@@ -21,7 +21,6 @@ public class Main {
     private static final String PURPLE = "\u001B[35m";
 
     public static void main(String[] args) {
-        // Создаем папку для экспорта
         java.io.File exportDir = new java.io.File(EXPORT_DIR);
         if (!exportDir.exists()) {
             exportDir.mkdirs();
@@ -30,7 +29,7 @@ public class Main {
         boolean running = true;
         while (running) {
             printMenu();
-            int choice = readInt("Выберите пункт (0-6): ", 0, 6); // Изменено с 9 на 6
+            int choice = readInt("Выберите пункт (0-6): ", 0, 6);
 
             switch (choice) {
                 case 1:
@@ -155,7 +154,6 @@ public class Main {
             recipe = new Recipe(title, category, instructionBuilder.toString());
         }
 
-        // Добавление ингредиентов
         System.out.println(GREEN + "\nДОБАВЛЕНИЕ ИНГРЕДИЕНТОВ" + RESET);
         System.out.println("(введите 'готово' чтобы закончить)");
 
@@ -194,23 +192,21 @@ public class Main {
         System.out.println(CYAN + "\nВСЕ РЕЦЕПТЫ (" + all.size() + ")" + RESET);
         for (int i = 0; i < all.size(); i++) {
             Recipe r = all.get(i);
-            String icon = (r instanceof SpecialRecipe) ? "" : "";
-            System.out.println(GREEN + "[" + i + "] " + RESET +
-                    icon + r.getTitle() + " (" + r.getCategory().getDisplayName() + ")");
+            System.out.println(GREEN + "[" + (i + 1) + "] " + RESET +
+                    r.getTitle() + " (" + r.getCategory().getDisplayName() + ")");
         }
 
-        // Показать детали выбранного рецепта
         if (!all.isEmpty()) {
             System.out.print("\nПоказать детали рецепта? (введите номер или 'нет'): ");
             String input = scanner.nextLine().trim();
             if (!input.equalsIgnoreCase("нет")) {
                 try {
                     int idx = Integer.parseInt(input);
-                    if (idx >= 0 && idx < all.size()) {
-                        System.out.println("\n" + all.get(idx));
+                    // Проверка от 1 до количества рецептов
+                    if (idx >= 1 && idx <= all.size()) {
+                        System.out.println("\n" + all.get(idx - 1));
                     }
                 } catch (NumberFormatException e) {
-                    // Игнорируем если не число
                 }
             }
         }
@@ -225,12 +221,12 @@ public class Main {
         String input = scanner.nextLine().trim();
         try {
             int idx = Integer.parseInt(input);
-            if (idx >= 0 && idx < all.size()) {
-                String title = all.get(idx).getTitle();
+            if (idx >= 1 && idx <= all.size()) {
+                String title = all.get(idx - 1).getTitle();
                 System.out.print("Вы уверены, что хотите удалить рецепт '" + title + "'? (да/нет): ");
                 String confirm = scanner.nextLine().trim().toLowerCase();
                 if (confirm.equals("да") || confirm.equals("yes") || confirm.equals("д")) {
-                    service.removeRecipe(idx);
+                    service.removeRecipe(idx - 1);
                 } else {
                     System.out.println("Удаление отменено.");
                 }
@@ -247,8 +243,8 @@ public class Main {
         List<Recipe> all = service.getAll();
         if (all.isEmpty()) return;
 
-        int idx = readInt("\nВведите номер рецепта для редактирования: ", 0, all.size() - 1);
-        Recipe r = all.get(idx);
+        int idx = readInt("\nВведите номер рецепта для редактирования: ", 1, all.size());
+        Recipe r = all.get(idx - 1);
 
         System.out.println(YELLOW + "\nРЕДАКТИРОВАНИЕ: " + r.getTitle() + "" + RESET);
 
@@ -262,7 +258,15 @@ public class Main {
         String newInst = readString("\nНовая инструкция (Enter - оставить без изменений): ");
         if (!newInst.isEmpty()) r.setInstruction(newInst);
 
-        // Редактирование ингредиентов
+        if (r instanceof SpecialRecipe) {
+            SpecialRecipe sr = (SpecialRecipe) r;
+            String currentHoliday = sr.getHoliday();
+            String newHoliday = readString("Новый праздник (Enter - оставить '" + currentHoliday + "'): ");
+            if (!newHoliday.isEmpty()) {
+                sr.setHoliday(newHoliday);
+            }
+        }
+
         System.out.println("\nТЕКУЩИЕ ИНГРЕДИЕНТЫ:");
         List<Ingredient> ingredients = r.getIngredients();
         if (ingredients.isEmpty()) {
@@ -314,7 +318,7 @@ public class Main {
             }
         }
 
-        service.updateRecipe(idx, r);
+        service.updateRecipe(idx - 1, r);
         System.out.println(GREEN + "\nРецепт успешно обновлён!" + RESET);
     }
 
