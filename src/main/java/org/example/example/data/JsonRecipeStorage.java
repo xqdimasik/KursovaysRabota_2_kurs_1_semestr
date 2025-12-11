@@ -1,20 +1,22 @@
-package org.example.data;
+package example.data;
 
+import example.interfaces.Storable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.example.model.Recipe;
-import org.example.model.SpecialRecipe;
-import org.example.model.Category;
-import org.example.model.Ingredient;
+import example.model.Recipe;
+import example.model.SpecialRecipe;
+import example.model.Category;
+import example.model.Ingredient;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JsonRecipeStorage {
+public class JsonRecipeStorage implements Storable {
 
-    public static void saveToJson(String filename, List<Recipe> recipes) {
+    @Override
+    public void saveToFile(String filename, List<Recipe> recipes) {
         if (recipes == null) {
             recipes = new ArrayList<>();
         }
@@ -31,7 +33,8 @@ public class JsonRecipeStorage {
         }
     }
 
-    public static List<Recipe> loadFromJson(String filename) {
+    @Override
+    public List<Recipe> loadFromFile(String filename) {
         ObjectMapper mapper = new ObjectMapper();
 
         try {

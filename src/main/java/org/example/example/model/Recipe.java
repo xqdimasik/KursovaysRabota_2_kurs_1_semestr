@@ -1,9 +1,10 @@
-package org.example.model;
+package example.model;
 
+import example.interfaces.Printable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recipe {
+public class Recipe implements Printable {
     private String title;
     private Category category;
     private List<Ingredient> ingredients;
@@ -20,8 +21,32 @@ public class Recipe {
         this.ingredients = new ArrayList<>();
     }
 
-    public String getRecipeType() {
-        return "Обычный рецепт";
+    @Override
+    public String getPrintableFormat() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("РЕЦЕПТ: ").append(title).append("\n");
+        sb.append("Категория: ").append(category.getDisplayName()).append("\n");
+        sb.append("\nИнгредиенты:\n");
+
+        if (ingredients != null && !ingredients.isEmpty()) {
+            for (Ingredient ing : ingredients) {
+                sb.append("   • ").append(ing).append("\n");
+            }
+        } else {
+            sb.append("   (нет ингредиентов)\n");
+        }
+
+        sb.append("\nИнструкция:\n");
+        sb.append("   ").append(instruction.replace("\n", "\n   "));
+
+        return sb.toString();
+    }
+
+    @Override
+    public String getShortDescription() {
+        String shortInst = instruction.length() > 50 ?
+                instruction.substring(0, 47) + "..." : instruction;
+        return title + " - " + shortInst;
     }
 
     public String getTitle() {
@@ -79,7 +104,7 @@ public class Recipe {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("🍳 ").append(title).append("\n");
+        sb.append("Рецепт: ").append(title).append("\n");
         sb.append("Категория: ").append(category.getDisplayName()).append("\n");
         sb.append("\nИнгредиенты:\n");
 

@@ -1,16 +1,19 @@
-package org.example.service;
+package example.service;
 
-import org.example.data.JsonRecipeStorage;
-import org.example.model.*;
+import example.interfaces.Searchable;
+import example.interfaces.Printable;
+import example.data.JsonRecipeStorage;
+import example.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeService {
+public class RecipeService implements Searchable {
     private List<Recipe> recipes;
     private static final String JSON_FILE = "recipes.json";
 
     public RecipeService() {
-        recipes = JsonRecipeStorage.loadFromJson(JSON_FILE);
+        JsonRecipeStorage storage = new JsonRecipeStorage();
+        recipes = storage.loadFromFile(JSON_FILE);
 
         if (recipes.isEmpty()) {
             System.out.println("Файл рецептов пустой, добавляю примеры...");
@@ -117,9 +120,11 @@ public class RecipeService {
     }
 
     private void saveAllRecipes() {
-        JsonRecipeStorage.saveToJson(JSON_FILE, recipes);
+        JsonRecipeStorage storage = new JsonRecipeStorage();
+        storage.saveToFile(JSON_FILE, recipes);
     }
 
+    @Override
     public List<Recipe> searchByTitle(String query) {
         List<Recipe> result = new ArrayList<>();
         for (Recipe r : recipes) {
@@ -130,6 +135,7 @@ public class RecipeService {
         return result;
     }
 
+    @Override
     public List<Recipe> searchByIngredient(String query) {
         List<Recipe> result = new ArrayList<>();
         for (Recipe r : recipes) {
@@ -143,5 +149,13 @@ public class RecipeService {
             }
         }
         return result;
+    }
+
+    public void printAllRecipesShort() {
+        System.out.println("\nКРАТКИЕ ОПИСАНИЯ ВСЕХ РЕЦЕПТОВ:");
+        for (Recipe recipe : recipes) {
+            Printable printable = recipe;
+            System.out.println("• " + printable.getShortDescription());
+        }
     }
 }

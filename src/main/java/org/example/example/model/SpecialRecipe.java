@@ -1,4 +1,4 @@
-package org.example.model;
+package example.model;
 
 public class SpecialRecipe extends Recipe {
     private String holiday;
@@ -13,8 +13,15 @@ public class SpecialRecipe extends Recipe {
     }
 
     @Override
-    public String getRecipeType() {
-        return "Праздничный рецепт";
+    public String getPrintableFormat() {
+        return "ПРАЗДНИЧНЫЙ РЕЦЕПТ\n" +
+                "Для праздника: " + holiday + "\n\n" +
+                super.getPrintableFormat();
+    }
+
+    @Override
+    public String getShortDescription() {
+        return "Праздничный: " + getTitle() + " (для " + holiday + ")";
     }
 
     public String getHoliday() {
@@ -28,7 +35,7 @@ public class SpecialRecipe extends Recipe {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("").append(getTitle()).append("\n");
+        sb.append("Праздничный рецепт: ").append(getTitle()).append("\n");
         sb.append("Категория: ").append(getCategory().getDisplayName()).append("\n");
         sb.append("Праздник: ").append(holiday).append("\n");
         sb.append("\nИнгредиенты:\n");
