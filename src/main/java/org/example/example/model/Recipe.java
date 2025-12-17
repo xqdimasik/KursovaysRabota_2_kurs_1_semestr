@@ -15,10 +15,17 @@ public class Recipe implements Printable {
     }
 
     public Recipe(String title, Category category, String instruction) {
+        this.setTitle(title);
+        this.setCategory(category);
+        this.setInstruction (instruction);
+        this.setIngredients(ingredients);
+    }
+
+
+    public void setTitle(String title) {
+        if(title == null)
+            throw new RuntimeException("null title");
         this.title = title;
-        this.category = category;
-        this.instruction = instruction;
-        this.ingredients = new ArrayList<>();
     }
 
     @Override
@@ -53,15 +60,15 @@ public class Recipe implements Printable {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+
 
     public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
+        if(category == null)
+            throw new RuntimeException("null category");
         this.category = category;
     }
 
@@ -70,6 +77,8 @@ public class Recipe implements Printable {
     }
 
     public void setIngredients(List<Ingredient> ingredients) {
+        if(ingredients == null)
+            throw new RuntimeException("null ibgredients");
         this.ingredients = ingredients;
     }
 
@@ -78,6 +87,8 @@ public class Recipe implements Printable {
     }
 
     public void setInstruction(String instruction) {
+        if(ingredients == null)
+            throw new RuntimeException("null instruction");
         this.instruction = instruction;
     }
 

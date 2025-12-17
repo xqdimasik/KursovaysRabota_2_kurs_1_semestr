@@ -9,7 +9,7 @@ public class SpecialRecipe extends Recipe {
 
     public SpecialRecipe(String title, Category category, String instruction, String holiday) {
         super(title, category, instruction);
-        this.holiday = holiday;
+        this.setHoliday(holiday);
     }
 
     @Override
@@ -29,6 +29,8 @@ public class SpecialRecipe extends Recipe {
     }
 
     public void setHoliday(String holiday) {
+        if(holiday == null)
+            throw new RuntimeException("null holiday");
         this.holiday = holiday;
     }
 

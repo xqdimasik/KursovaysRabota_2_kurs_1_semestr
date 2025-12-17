@@ -7,8 +7,8 @@ public class Ingredient {
     public Ingredient() {}
 
     public Ingredient(String name, String amount) {
-        this.name = name;
-        this.amount = amount;
+        this.setName(name);
+        this.setAmount(amount);
     }
 
     public String getName() {
@@ -16,6 +16,8 @@ public class Ingredient {
     }
 
     public void setName(String name) {
+        if(name == null)
+            throw new RuntimeException("null name");
         this.name = name;
     }
 
@@ -24,6 +26,8 @@ public class Ingredient {
     }
 
     public void setAmount(String amount) {
+        if(amount == null)
+            throw new RuntimeException("null amount");
         this.amount = amount;
     }
 
