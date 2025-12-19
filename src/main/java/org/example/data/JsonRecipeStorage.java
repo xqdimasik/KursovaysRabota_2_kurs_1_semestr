@@ -1,13 +1,13 @@
-package example.data;
+package data;
 
-import example.interfaces.Storable;
+import interfaces.Storable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
-import example.model.Recipe;
-import example.model.SpecialRecipe;
-import example.model.Category;
-import example.model.Ingredient;
+import model.Recipe;
+import model.SpecialRecipe;
+import model.Category;
+import model.Ingredient;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

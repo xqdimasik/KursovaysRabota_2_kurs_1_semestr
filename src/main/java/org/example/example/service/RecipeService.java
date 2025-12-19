@@ -1,9 +1,13 @@
 package example.service;
 
-import example.interfaces.Searchable;
-import example.interfaces.Printable;
-import example.data.JsonRecipeStorage;
-import example.model.*;
+import interfaces.Searchable;
+import interfaces.Printable;
+import data.JsonRecipeStorage;
+import model.Category;
+import model.Ingredient;
+import model.Recipe;
+import model.SpecialRecipe;
+
 import java.util.ArrayList;
 import java.util.List;
 

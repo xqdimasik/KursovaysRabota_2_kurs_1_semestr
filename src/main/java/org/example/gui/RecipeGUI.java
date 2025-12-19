@@ -1,7 +1,11 @@
-package example.gui;
+package gui;
 
-import example.model.*;
 import example.service.RecipeService;
+import model.Category;
+import model.Ingredient;
+import model.Recipe;
+import model.SpecialRecipe;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;

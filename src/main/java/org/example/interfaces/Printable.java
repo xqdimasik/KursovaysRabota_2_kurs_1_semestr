@@ -1,4 +1,4 @@
-package example.interfaces;
+package interfaces;
 
 public interface Printable {
     String getPrintableFormat();

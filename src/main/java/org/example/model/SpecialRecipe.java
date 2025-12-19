@@ -1,4 +1,4 @@
-package example.model;
+package model;
 
 public class SpecialRecipe extends Recipe {
     private String holiday;

@@ -1,6 +1,6 @@
-package example.model;
+package model;
 
-import example.interfaces.Printable;
+import interfaces.Printable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class Recipe implements Printable {
         this.setTitle(title);
         this.setCategory(category);
         this.setInstruction (instruction);
-        this.setIngredients(ingredients);
+        this.ingredients = new ArrayList<>();
     }
 
 
@@ -77,9 +77,12 @@ public class Recipe implements Printable {
     }
 
     public void setIngredients(List<Ingredient> ingredients) {
-        if(ingredients == null)
-            throw new RuntimeException("null ibgredients");
-        this.ingredients = ingredients;
+        if (ingredients == null) {
+            this.ingredients = new ArrayList<>();
+            throw new RuntimeException("nuul ingredients");
+        } else {
+            this.ingredients = ingredients;
+        }
     }
 
     public String getInstruction() {
@@ -87,7 +90,7 @@ public class Recipe implements Printable {
     }
 
     public void setInstruction(String instruction) {
-        if(ingredients == null)
+        if(instruction == null)
             throw new RuntimeException("null instruction");
         this.instruction = instruction;
     }

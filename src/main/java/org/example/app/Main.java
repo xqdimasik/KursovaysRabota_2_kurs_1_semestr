@@ -1,6 +1,6 @@
-package example.app;
+package app;
 
-import example.gui.RecipeGUI;
+import gui.RecipeGUI;
 
 public class Main {
     public static void main(String[] args) {

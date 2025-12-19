@@ -1,4 +1,4 @@
-package example.model;
+package model;
 
 public enum Category {
     SOUP("Суп"),

@@ -1,7 +1,7 @@
-package example.interfaces;
+package interfaces;
 
 import java.util.List;
-import example.model.Recipe;
+import model.Recipe;
 
 public interface Storable {
     void saveToFile(String filename, List<Recipe> recipes);
